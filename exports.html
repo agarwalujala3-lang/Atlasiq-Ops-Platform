@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AtlasIQ Ops | Exports</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body data-page="exports">
+  <div class="page-shell">
+    <aside class="sidebar">
+      <div class="brand"><div class="brand-mark">A</div><h1>AtlasIQ <span>Ops</span></h1></div>
+      <nav class="nav">
+        <a class="nav-link" data-page="dashboard" href="./index.html">Home</a>
+        <a class="nav-link" data-page="workspaces" href="./workspaces.html">Workspaces</a>
+        <a class="nav-link" data-page="review" href="./review.html">Review & Study</a>
+        <a class="nav-link" data-page="reports" href="./reports.html">Reports</a>
+        <a class="nav-link" data-page="exports" href="./exports.html">Exports</a>
+        <a class="nav-link" data-page="admin" href="./admin.html">Admin</a>
+      </nav>
+      <div class="sidebar-block">
+        <div class="user-chip">
+          <div class="avatar">S</div>
+          <div>
+            <div id="userIdentity" class="user-name">Sophia Bennett</div>
+            <div id="userMeta" class="muted">L&D Leader</div>
+          </div>
+          <button id="logoutBtn" class="icon-btn" aria-label="Log out">x</button>
+        </div>
+      </div>
+    </aside>
+    <main class="main">
+      <header class="topbar">
+        <div class="topbar-left">
+          <div>
+            <div class="eyebrow">Exports</div>
+            <h2>Package workspaces for sharing, handoff, and offline review.</h2>
+          </div>
+        </div>
+      </header>
+      <section class="workspace-grid">
+        <article class="panel">
+          <div class="panel-title">Available export formats</div>
+          <div class="stack-grid">
+            <button id="exportMarkdownPageBtn" class="btn btn-primary" type="button">Export Markdown</button>
+            <button id="exportJsonPageBtn" class="btn btn-soft" type="button">Export JSON</button>
+            <div class="activity-item"><strong>PDF</strong><small class="muted">UI-ready, backend generation scaffold next.</small></div>
+            <div class="activity-item"><strong>Slides</strong><small class="muted">Presentation export scaffold next.</small></div>
+          </div>
+        </article>
+        <article class="panel">
+          <div class="panel-title">Export checklist</div>
+          <ul class="security-list">
+            <li>Structured summary included</li>
+            <li>Cheat notes included</li>
+            <li>Citations and source traceability included</li>
+            <li>Workspace metadata included</li>
+          </ul>
+        </article>
+      </section>
+    </main>
+  </div>
+  <script type="module" src="./exports.js"></script>
+</body>
+</html>
+

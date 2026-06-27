@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AtlasIQ Ops | Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body data-page="dashboard">
+  <section id="authShell" class="auth-shell">
+    <div class="auth-panel auth-panel-brand">
+      <div class="brand">
+        <div class="brand-mark">A</div>
+        <h1>AtlasIQ <span>Ops</span></h1>
+      </div>
+      <div class="eyebrow">Knowledge Operations Platform</div>
+      <h2>Transform raw content into visual, traceable, decision-ready learning assets.</h2>
+      <p class="muted">Built for students, onboarding teams, educators, and enterprise learning operations.</p>
+      <div class="auth-metrics">
+        <article class="metric-card">
+          <div class="metric-label">Core workflow</div>
+          <div class="metric-value">5 steps</div>
+          <div class="muted">ingest, extract, visualize, review, export</div>
+        </article>
+        <article class="metric-card">
+          <div class="metric-label">Security</div>
+          <div class="metric-value">Server-backed</div>
+          <div class="muted">real users, real sessions, persisted workspaces</div>
+        </article>
+        <article class="metric-card">
+          <div class="metric-label">Output modes</div>
+          <div class="metric-value">Multi-format</div>
+          <div class="muted">summary, graph, cheat sheet, flashcards, quiz</div>
+        </article>
+      </div>
+    </div>
+    <div class="auth-panel">
+      <div class="eyebrow">Secure Access</div>
+      <h2>Open your workspace</h2>
+      <div class="tab-row">
+        <button id="loginModeBtn" class="tab-btn active" type="button">Login</button>
+        <button id="registerModeBtn" class="tab-btn" type="button">Create Account</button>
+      </div>
+      <form id="authForm" class="auth-form">
+        <label class="field-group">
+          <span class="mini-label">Full name</span>
+          <input id="authNameInput" type="text" placeholder="Sophia Bennett" />
+        </label>
+        <label class="field-group">
+          <span class="mini-label">Email</span>
+          <input id="authEmailInput" type="email" placeholder="sophia@company.com" />
+        </label>
+        <label class="field-group">
+          <span class="mini-label">Password</span>
+          <input id="authPasswordInput" type="password" placeholder="At least 8 characters" />
+        </label>
+        <div class="form-grid">
+          <label class="field-group">
+            <span class="mini-label">Role</span>
+            <select id="authRoleInput">
+              <option value="L&D Leader">L&D Leader</option>
+              <option value="Instructor">Instructor</option>
+              <option value="Learner">Learner</option>
+              <option value="Admin">Admin</option>
+            </select>
+          </label>
+          <label class="field-group">
+            <span class="mini-label">Team</span>
+            <input id="authTeamInput" type="text" placeholder="Revenue Enablement" />
+          </label>
+        </div>
+        <button id="authSubmitBtn" class="btn btn-primary" type="submit">Login to Dashboard</button>
+      </form>
+      <p id="authStatus" class="muted">Your account and workspace history are stored securely on the server.</p>
+    </div>
+  </section>
+
+  <div id="appShell" class="page-shell hidden">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">A</div>
+        <h1>AtlasIQ <span>Ops</span></h1>
+      </div>
+
+      <nav class="nav">
+        <a class="nav-link" data-page="dashboard" href="./index.html">Home</a>
+        <a class="nav-link" data-page="workspaces" href="./workspaces.html">Workspaces</a>
+        <a class="nav-link" href="./index.html#ingestion">Ingestion</a>
+        <a class="nav-link" href="./index.html#insights">Insight Studio</a>
+        <a class="nav-link" data-page="review" href="./review.html">Review & Study</a>
+        <a class="nav-link" data-page="reports" href="./reports.html">Reports</a>
+        <a class="nav-link" data-page="exports" href="./exports.html">Exports</a>
+        <a class="nav-link" data-page="admin" href="./admin.html">Admin</a>
+      </nav>
+
+      <section class="sidebar-block">
+        <div class="sidebar-label">Recent Workspaces</div>
+        <div id="workspaceList" class="recent-list"></div>
+      </section>
+
+      <section class="sidebar-block progress-card">
+        <div class="sidebar-label">Your Progress</div>
+        <div class="progress-ring">72%</div>
+        <div class="muted">Weekly goal</div>
+        <strong>7.2 / 10 hrs</strong>
+        <div class="mini-chart">
+          <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+      </section>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="workspace-switch">All Workspaces</button>
+        </div>
+        <div class="topbar-right">
+          <div class="search-box">
+            <input type="text" placeholder="Search across workspaces, content, insights..." />
+          </div>
+          <button class="workspace-switch">May 12 - May 18, 2025</button>
+          <button class="btn btn-primary">+ Create</button>
+          <button id="notificationButton" class="icon-btn">6</button>
+          <button class="icon-btn" aria-label="Help">?</button>
+          <div class="user-chip">
+            <div class="avatar">S</div>
+            <div>
+              <div id="userIdentity" class="user-name">Sophia Bennett</div>
+              <div id="userMeta" class="muted">L&D Leader</div>
+            </div>
+            <button id="logoutBtn" class="icon-btn" aria-label="Log out">x</button>
+          </div>
+        </div>
+      </header>
+
+      <section class="overview-title">
+        <h2>Overview</h2>
+      </section>
+
+      <section class="metric-grid">
+        <article class="metric-card">
+          <div class="metric-label">Total Workspaces</div>
+          <div class="metric-row"><div id="metricSavedCount" class="metric-value">24</div><div class="metric-icon purple"></div></div>
+          <div class="metric-trend">+ 14% vs last 7 days</div>
+        </article>
+        <article class="metric-card">
+          <div class="metric-label">Documents Processed</div>
+          <div class="metric-row"><div id="metricSourcesProcessed" class="metric-value">1,248</div><div class="metric-icon orange"></div></div>
+          <div class="metric-trend">+ 28% vs last 7 days</div>
+        </article>
+        <article class="metric-card">
+          <div class="metric-label">Knowledge Assets</div>
+          <div class="metric-row"><div id="metricAssetsCreated" class="metric-value">3,674</div><div class="metric-icon orange"></div></div>
+          <div class="metric-trend">+ 21% vs last 7 days</div>
+        </article>
+        <article class="metric-card">
+          <div class="metric-label">Active Learners</div>
+          <div class="metric-row"><div class="metric-value">812</div><div class="metric-icon purple"></div></div>
+          <div class="metric-trend">+ 18% vs last 7 days</div>
+        </article>
+        <article class="metric-card">
+          <div class="metric-label">Avg. Comprehension</div>
+          <div class="metric-row"><div id="metricComprehension" class="metric-value">76%</div><div class="sparkline"></div></div>
+          <div class="metric-trend">+ 9% vs last 7 days</div>
+        </article>
+        <article class="metric-card">
+          <div class="metric-label">Time Saved</div>
+          <div class="metric-row"><div id="metricSavedHours" class="metric-value">220 hrs</div><div class="metric-icon orange"></div></div>
+          <div class="metric-trend">+ 31% vs last 7 days</div>
+        </article>
+      </section>
+
+      <section class="dashboard-grid">
+        <article id="ingestion" class="panel panel-upload">
+          <div class="panel-head">
+            <div class="panel-title">Content Ingestion</div>
+            <div class="secure-pill">Secure upload</div>
+          </div>
+
+          <form id="ingestForm" class="ingest-form">
+            <div class="upload-drop">
+              <div class="upload-icon"></div>
+              <h3>Drag & drop files here</h3>
+              <p>Supports PDF, DOCX, PPTX, XLSX, TXT, MD, URL</p>
+              <div class="toolbar-row">
+                <button id="sampleContentBtn" class="btn btn-soft" type="button">Load sample</button>
+                <button class="btn btn-primary" type="submit">Generate insights</button>
+              </div>
+              <div class="support-copy">Max 2GB per file</div>
+            </div>
+
+            <div class="stack-grid">
+              <input id="sourceTitleInput" type="text" placeholder="Source title" />
+              <div class="form-grid">
+                <select id="sourceTypeInput">
+                  <option value="PDF">PDF</option>
+                  <option value="Document">Document</option>
+                  <option value="Video URL">Video URL</option>
+                  <option value="Notes">Notes</option>
+                </select>
+                <input id="sourceUrlInput" type="text" placeholder="Paste source URL" />
+              </div>
+              <textarea id="sourceContentInput" rows="7" placeholder="Paste notes, transcript, article text, or content here..."></textarea>
+              <input id="sourceFileInput" type="file" accept=".txt,.md,.json,.csv" />
+            </div>
+          </form>
+
+          <div class="queue-list">
+            <div class="queue-row">
+              <div class="queue-meta">
+                <div class="queue-badge">AI</div>
+                <div>
+                  <div id="tableSourceName" class="queue-title">AI Governance Framework.pdf</div>
+                  <div class="queue-sub"><span id="tableSourceType">PDF</span> | <span id="tableTraceability">Awaiting generation</span></div>
+                </div>
+              </div>
+              <span id="tableSourceStatus" class="status-pill success">Ready</span>
+            </div>
+          </div>
+
+          <div class="trust-row">
+            <span class="trust-chip">Source Traceability</span>
+            <span class="trust-chip">PII Detection</span>
+            <span class="trust-chip">Content Safe</span>
+            <span class="trust-chip">Encryption AES-256</span>
+          </div>
+        </article>
+
+        <article id="insights" class="panel panel-summary">
+          <div class="panel-title">Insight Studio</div>
+          <div class="tab-row">
+            <button class="tab-btn mode-btn active" data-mode="Beginner">Structured Summary</button>
+            <button class="tab-btn mode-btn" data-mode="Exam">Highlights</button>
+            <button class="tab-btn mode-btn" data-mode="Advanced">Chapters</button>
+          </div>
+          <div id="summaryList" class="summary-list"></div>
+          <div class="toolbar-row">
+            <button id="regenerateBtn" class="btn btn-primary" type="button">Regenerate</button>
+            <button id="saveWorkspaceBtn" class="btn btn-soft" type="button">Save Snapshot</button>
+          </div>
+          <div class="pill-row">
+            <span id="activeAudiencePill" class="toolbar-pill">Audience: L&D leader</span>
+            <span id="activeDepthPill" class="toolbar-pill">Depth: beginner</span>
+            <span id="activeSourcePill" class="toolbar-pill">Source: ai governance framework</span>
+          </div>
+          <div id="generationStatus" class="muted">Ready for generation</div>
+        </article>
+
+        <article class="panel panel-map">
+          <div class="panel-head">
+            <div class="panel-title">Knowledge Map</div>
+            <button class="btn btn-ghost" type="button">View fullscreen</button>
+          </div>
+          <div id="knowledgeMap" class="knowledge-map">
+            <div id="coreNode" class="map-core">AI Governance</div>
+            <div id="mapNode0" class="map-node node-a">Compliance</div>
+            <div id="mapNode1" class="map-node node-b">Transparency</div>
+            <div id="mapNode2" class="map-node node-c">Ethics & Fairness</div>
+            <div id="mapNode3" class="map-node node-d">Data Privacy</div>
+            <div id="mapNode4" class="map-node node-e">Risk Management</div>
+            <div id="mapNode5" class="map-node node-f">Human Oversight</div>
+          </div>
+        </article>
+
+        <article class="panel panel-charts">
+          <div class="panel-head">
+            <div class="panel-title">Charts</div>
+            <select class="chart-filter">
+              <option>Comprehension by Topic</option>
+            </select>
+          </div>
+          <div id="chartBars" class="chart-bars"></div>
+        </article>
+
+        <article class="panel panel-cheat">
+          <div class="panel-head">
+            <div class="panel-title">Cheat Notes</div>
+            <button id="exportMarkdownBtn" class="btn btn-ghost" type="button">Export MD</button>
+          </div>
+          <ul id="cheatGrid" class="cheat-list"></ul>
+        </article>
+
+        <article class="panel panel-flashcard">
+          <div class="tab-row">
+            <button class="tab-btn active" type="button">Flashcards</button>
+            <button class="tab-btn" type="button">Quiz</button>
+          </div>
+          <div class="flashcard-toolbar">
+            <span id="flashcardCounter">1 / 3</span>
+            <div class="flashcard-actions">
+              <button id="prevFlashcardBtn" class="icon-btn" type="button"><</button>
+              <button id="toggleFlashcardBtn" class="icon-btn" type="button">?</button>
+              <button id="nextFlashcardBtn" class="icon-btn" type="button">></button>
+            </div>
+          </div>
+          <div class="flashcard-box">
+            <div id="flashcardPrompt" class="flashcard-question">What are the pillars of responsible AI?</div>
+            <div id="flashcardAnswer" class="flashcard-answer hidden"></div>
+          </div>
+          <div class="muted centered-copy">Click ? to reveal the answer</div>
+        </article>
+
+        <article class="panel panel-review">
+          <div class="panel-title">Review Mode</div>
+          <div id="reviewLayout" class="review-list"></div>
+          <div class="recommendation-card">
+            <div class="mini-label">Study Next Recommendation</div>
+            <strong id="studyRecommendationTitle">Continue where you left off</strong>
+            <p id="studyRecommendationBody" class="muted">AI Governance Framework | Chapter 3: Risk Management</p>
+            <a class="btn btn-primary" href="./review.html">Start studying</a>
+          </div>
+        </article>
+
+        <article class="panel panel-traceability">
+          <div class="panel-head">
+            <div class="panel-title">Source Traceability</div>
+            <button id="exportJsonBtn" class="btn btn-ghost" type="button">Export JSON</button>
+          </div>
+          <div id="citationList" class="citation-list"></div>
+          <div class="timeline-wrap">
+            <div class="mini-label">Processing Flow</div>
+            <div id="timelineList" class="timeline-list"></div>
+          </div>
+        </article>
+
+        <article class="panel panel-admin-preview">
+          <div class="panel-head">
+            <div class="panel-title">Admin & Settings</div>
+            <a class="btn btn-ghost" href="./admin.html">Open admin</a>
+          </div>
+          <div class="admin-mini-tabs">
+            <span class="active">Access</span>
+            <span>Audit Log</span>
+            <span>Exports</span>
+            <span>Privacy</span>
+          </div>
+          <div class="mini-table">
+            <div class="mini-table-row"><strong>Workspace Admins</strong><span>8</span><span>Full access</span></div>
+            <div class="mini-table-row"><strong>Content Managers</strong><span>15</span><span>Create, edit, publish</span></div>
+            <div class="mini-table-row"><strong>Learners</strong><span>812</span><span>View, learn, comment</span></div>
+          </div>
+        </article>
+
+        <article class="panel panel-version">
+          <div class="panel-head">
+            <div class="panel-title">Version History</div>
+            <a class="text-link" href="./workspaces.html">View all versions</a>
+          </div>
+          <div id="versionList" class="activity-list"></div>
+        </article>
+
+        <article class="panel panel-activity">
+          <div class="panel-head">
+            <div class="panel-title">Activity Feed</div>
+            <span class="muted">Live</span>
+          </div>
+          <div id="auditLog" class="activity-list"></div>
+        </article>
+
+        <article class="panel panel-notify">
+          <div class="panel-head">
+            <div class="panel-title">Notifications</div>
+            <button id="clearNotificationsBtn" class="btn btn-ghost" type="button">Mark all read</button>
+          </div>
+          <div id="notificationList" class="activity-list"></div>
+        </article>
+      </section>
+    </main>
+  </div>
+
+  <script type="module" src="./dashboard.js"></script>
+</body>
+</html>
+

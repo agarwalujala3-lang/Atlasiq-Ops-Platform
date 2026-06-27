@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AtlasIQ Ops | Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body data-page="admin">
+  <div class="page-shell">
+    <aside class="sidebar">
+      <div class="brand"><div class="brand-mark">A</div><h1>AtlasIQ <span>Ops</span></h1></div>
+      <nav class="nav">
+        <a class="nav-link" data-page="dashboard" href="./index.html">Home</a>
+        <a class="nav-link" data-page="workspaces" href="./workspaces.html">Workspaces</a>
+        <a class="nav-link" data-page="review" href="./review.html">Review & Study</a>
+        <a class="nav-link" data-page="reports" href="./reports.html">Reports</a>
+        <a class="nav-link" data-page="exports" href="./exports.html">Exports</a>
+        <a class="nav-link" data-page="admin" href="./admin.html">Admin</a>
+      </nav>
+      <div class="sidebar-block">
+        <div class="user-chip">
+          <div class="avatar">S</div>
+          <div>
+            <div id="userIdentity" class="user-name">Sophia Bennett</div>
+            <div id="userMeta" class="muted">L&D Leader</div>
+          </div>
+          <button id="logoutBtn" class="icon-btn" aria-label="Log out">x</button>
+        </div>
+      </div>
+    </aside>
+    <main class="main">
+      <header class="topbar">
+        <div class="topbar-left">
+          <div>
+            <div class="eyebrow">Admin & Security</div>
+            <h2>Permissions, auditability, exports, and operational health.</h2>
+          </div>
+        </div>
+      </header>
+      <section class="status-grid">
+        <article class="status-card">
+          <div class="mini-label">Server health</div>
+          <strong id="serverHealth">Checking</strong>
+          <p id="serverHealthCopy" class="muted">Verifying backend availability.</p>
+        </article>
+        <article class="status-card">
+          <div class="mini-label">Key exposure</div>
+          <strong>Protected</strong>
+          <p class="muted">OpenAI secret key is never stored in frontend code.</p>
+        </article>
+        <article class="status-card">
+          <div class="mini-label">Persistence</div>
+          <strong>Per-user snapshots</strong>
+          <p class="muted">Saved workspaces stay scoped to the signed-in browser user.</p>
+        </article>
+      </section>
+      <section class="review-page-grid">
+        <article class="panel">
+          <div class="panel-title">Security checklist</div>
+          <ul class="security-list">
+            <li>Secret key stays in `.env` only.</li>
+            <li>Rate limiting applied to generation route.</li>
+            <li>Source content length is capped before model calls.</li>
+            <li>Fallback responses avoid leaking raw backend errors.</li>
+            <li>Client exports do not expose the API key.</li>
+          </ul>
+        </article>
+        <article class="panel">
+          <div class="panel-title">Role-based access</div>
+          <div class="mini-table">
+            <div class="mini-table-row"><strong>Workspace Admins</strong><span>8</span><span>Full access</span></div>
+            <div class="mini-table-row"><strong>Content Managers</strong><span>15</span><span>Create, edit, publish</span></div>
+            <div class="mini-table-row"><strong>Instructors</strong><span>23</span><span>Assign, review, assess</span></div>
+            <div class="mini-table-row"><strong>Learners</strong><span>812</span><span>View, learn, comment</span></div>
+          </div>
+        </article>
+        <article class="panel">
+          <div class="panel-title">Operational roadmap</div>
+          <ul class="security-list">
+            <li>Replace local auth with real server authentication.</li>
+            <li>Move snapshots into a secure database.</li>
+            <li>Add signed uploads and OCR / transcript jobs.</li>
+            <li>Add PDF and Slides generation on the backend.</li>
+            <li>Add automated tests for auth, generation, and export flows.</li>
+          </ul>
+        </article>
+      </section>
+    </main>
+  </div>
+  <script type="module" src="./admin.js"></script>
+</body>
+</html>
+
