@@ -1,7 +1,8 @@
-﻿{
+{
   "name": "atlasiq-ops-platform",
   "version": "1.0.0",
   "private": true,
+  "homepage": "https://atlasiq-ops-platform.netlify.app/",
   "type": "module",
   "scripts": {
     "start": "node server.js",
@@ -12,3 +13,4 @@
     "express": "^4.21.2"
   }
 }
+

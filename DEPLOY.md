@@ -1,36 +1,30 @@
 # AtlasIQ Ops Deployment
 
-## Recommended Host
+## Live URL
 
-Use Render as a Node web service.
+Production app URL:
 
-Why:
-- this app uses an Express server
-- it has authenticated API routes
-- it needs persistent storage for `db.json`
+`https://atlasiq-ops-platform.netlify.app/`
 
-## Included Deployment Config
+## Current Hosting Reference
 
-The repository should include a `render.yaml` file with:
-- Node runtime
-- `npm install` build
-- `npm start` launch
-- persistent disk mounted at `/var/data`
-- `DB_PATH=/var/data/atlasiq-ops-db.json`
+This is the public URL that should be used in project docs, demos, and sharing links:
 
-## Required Environment Variables
+- https://atlasiq-ops-platform.netlify.app/
+
+## Recommended Production Notes
+
+The app includes:
+- Express server routes
+- authenticated API endpoints
+- persisted workspace storage
+
+If this public URL is being served through a platform that does not keep the Node backend and persistent storage active, some authenticated or saved-data features may need an additional backend deployment.
+
+## Environment Variables
 
 - `OPENAI_API_KEY`
-- `OPENAI_MODEL` (optional, defaults to `gpt-4.1-mini`)
-- `DB_PATH` (already defined in `render.yaml`)
-
-## Important Note
-
-The current app uses a file-backed database.
-That means persistent disk storage is required in production.
-Without a persistent disk, user accounts and workspaces can be lost on restart or redeploy.
-
-## Best Next Upgrade
-
-Replace file-backed persistence with a managed database such as Postgres for stronger production reliability.
+- `OPENAI_MODEL=gpt-4.1-mini`
+- `DB_PATH=./db.json`
+- `APP_BASE_URL=https://atlasiq-ops-platform.netlify.app/`
 
