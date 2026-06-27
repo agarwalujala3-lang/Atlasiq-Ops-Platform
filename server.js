@@ -64,7 +64,8 @@ function verifyPassword(password, stored) {
   return crypto.timingSafeEqual(Buffer.from(hash, "hex"), Buffer.from(candidate, "hex"));
 }
 
-async function ensureDb() {`r`n  await fs.mkdir(path.dirname(dbPath), { recursive: true });
+async function ensureDb() {
+  await fs.mkdir(path.dirname(dbPath), { recursive: true });
   try {
     await fs.access(dbPath);
   } catch (_error) {
@@ -474,5 +475,6 @@ app.get("*", (_req, res) => {
 app.listen(port, () => {
   console.log(`AtlasIQ Ops server running at http://localhost:${port}`);
 });
+
 
 
