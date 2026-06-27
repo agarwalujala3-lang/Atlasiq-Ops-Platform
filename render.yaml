@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: atlasiq-ops-platform
+    runtime: node
+    repo: https://github.com/agarwalujala3-lang/Atlasiq-Ops-Platform
+    branch: main
+    buildCommand: npm install
+    startCommand: npm start
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: OPENAI_MODEL
+        value: gpt-4.1-mini
+      - key: DB_PATH
+        value: /var/data/atlasiq-ops-db.json
+      - key: OPENAI_API_KEY
+        sync: false
+    disk:
+      name: atlasiq-ops-data
+      mountPath: /var/data
+      sizeGB: 1
+

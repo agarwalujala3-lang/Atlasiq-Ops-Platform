@@ -9,7 +9,7 @@ dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const dbPath = path.join(__dirname, "db.json");
+const dbPath = process.env.DB_PATH || path.join(__dirname, "db.json");
 const app = express();
 const port = process.env.PORT || 3000;
 const model = process.env.OPENAI_MODEL || "gpt-4.1-mini";
@@ -64,7 +64,7 @@ function verifyPassword(password, stored) {
   return crypto.timingSafeEqual(Buffer.from(hash, "hex"), Buffer.from(candidate, "hex"));
 }
 
-async function ensureDb() {
+async function ensureDb() {`r`n  await fs.mkdir(path.dirname(dbPath), { recursive: true });
   try {
     await fs.access(dbPath);
   } catch (_error) {
@@ -474,4 +474,5 @@ app.get("*", (_req, res) => {
 app.listen(port, () => {
   console.log(`AtlasIQ Ops server running at http://localhost:${port}`);
 });
+
 
