@@ -258,6 +258,147 @@ Source Content:
 ${content}`;
 }
 
+function wrapPdfText(text, maxChars = 88) {
+  const normalized = String(text || "")
+    .replace(/\r/g, "")
+    .replace(/[^\x20-\x7E\n]/g, " ")
+    .split("\n");
+  const lines = [];
+  normalized.forEach((rawLine) => {
+    const source = rawLine.trim();
+    if (!source) {
+      lines.push("");
+      return;
+    }
+    const words = source.split(/\s+/);
+    let current = "";
+    words.forEach((word) => {
+      const next = current ? `${current} ${word}` : word;
+      if (next.length > maxChars) {
+        if (current) {
+          lines.push(current);
+        }
+        current = word;
+      } else {
+        current = next;
+      }
+    });
+    if (current) {
+      lines.push(current);
+    }
+  });
+  return lines;
+}
+
+function escapePdfText(value) {
+  return String(value || "")
+    .replace(/\\/g, "\\\\")
+    .replace(/\(/g, "\\(")
+    .replace(/\)/g, "\\)");
+}
+
+function buildWorkspacePdf(workspace) {
+  const outputs = workspace.outputs || {};
+  const blocks = [
+    { type: "title", lines: [workspace.title || "AtlasIQ Ops Export"] },
+    { type: "meta", lines: [`Source type: ${workspace.sourceType || "Document"}`, `Saved: ${new Date(workspace.savedAt || Date.now()).toLocaleString()}`] },
+    { type: "section", lines: ["Structured Summary"] },
+    ...(outputs.summary || []).flatMap((item) => wrapPdfText(`${item.label}: ${item.text}`)).map((line) => ({ type: "body", lines: [line] })),
+    { type: "section", lines: ["Cheat Notes"] },
+    ...(outputs.cheat || []).flatMap((item) => wrapPdfText(`- ${item}`)).map((line) => ({ type: "body", lines: [line] })),
+    { type: "section", lines: ["Source Traceability"] },
+    ...(outputs.citations || []).flatMap((item) => wrapPdfText(`- ${item.title} (${item.source}): ${item.note}`)).map((line) => ({ type: "body", lines: [line] }))
+  ];
+
+  const pages = [];
+  let currentPage = [];
+  let currentLineCount = 0;
+  const maxLinesPerPage = 42;
+
+  blocks.forEach((block) => {
+    const cost = Math.max(block.lines.length, 1) + (block.type === "section" ? 1 : 0);
+    if (currentLineCount + cost > maxLinesPerPage && currentPage.length) {
+      pages.push(currentPage);
+      currentPage = [];
+      currentLineCount = 0;
+    }
+    currentPage.push(block);
+    currentLineCount += cost;
+  });
+  if (currentPage.length) {
+    pages.push(currentPage);
+  }
+
+  const objects = [];
+  const addObject = (content) => {
+    objects.push(content);
+    return objects.length;
+  };
+
+  const catalogNum = addObject("<< /Type /Catalog /Pages 2 0 R >>");
+  const pagesNum = addObject("<< /Type /Pages /Count 0 /Kids [] >>");
+  const fontNum = addObject("<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>");
+  const pageNums = [];
+
+  pages.forEach((pageBlocks, pageIndex) => {
+    const commands = [];
+    commands.push("BT");
+    commands.push("/F1 22 Tf");
+    commands.push("48 760 Td");
+    let firstLine = true;
+
+    const pushLine = (text, size = 11) => {
+      if (!firstLine) {
+        commands.push("T*");
+      }
+      firstLine = false;
+      commands.push(`/F1 ${size} Tf`);
+      commands.push(`(${escapePdfText(text)}) Tj`);
+    };
+
+    pageBlocks.forEach((block) => {
+      if (block.type === "title") {
+        block.lines.forEach((line) => pushLine(line, 22));
+        pushLine("", 11);
+      } else if (block.type === "section") {
+        block.lines.forEach((line) => pushLine(line, 15));
+      } else if (block.type === "meta") {
+        block.lines.forEach((line) => pushLine(line, 10));
+        pushLine("", 11);
+      } else {
+        block.lines.forEach((line) => pushLine(line, 11));
+      }
+    });
+
+    pushLine("", 11);
+    pushLine(`Page ${pageIndex + 1} of ${pages.length}`, 9);
+    commands.push("ET");
+
+    const stream = commands.join("\n");
+    const contentNum = addObject(`<< /Length ${Buffer.byteLength(stream, "utf8")} >>\nstream\n${stream}\nendstream`);
+    const pageNum = addObject(`<< /Type /Page /Parent ${pagesNum} 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 ${fontNum} 0 R >> >> /Contents ${contentNum} 0 R >>`);
+    pageNums.push(pageNum);
+  });
+
+  objects[pagesNum - 1] = `<< /Type /Pages /Count ${pageNums.length} /Kids [${pageNums.map((num) => `${num} 0 R`).join(" ")}] >>`;
+  objects[catalogNum - 1] = `<< /Type /Catalog /Pages ${pagesNum} 0 R >>`;
+
+  let pdf = "%PDF-1.4\n";
+  const offsets = [0];
+  objects.forEach((object, index) => {
+    offsets[index + 1] = Buffer.byteLength(pdf, "utf8");
+    pdf += `${index + 1} 0 obj\n${object}\nendobj\n`;
+  });
+  const xrefOffset = Buffer.byteLength(pdf, "utf8");
+  pdf += `xref\n0 ${objects.length + 1}\n`;
+  pdf += "0000000000 65535 f \n";
+  for (let index = 1; index <= objects.length; index += 1) {
+    pdf += `${String(offsets[index]).padStart(10, "0")} 00000 n \n`;
+  }
+  pdf += `trailer\n<< /Size ${objects.length + 1} /Root ${catalogNum} 0 R >>\nstartxref\n${xrefOffset}\n%%EOF`;
+  return Buffer.from(pdf, "utf8");
+}
+
 async function generateInsights(body) {
   const mode = sanitizeText(body.mode || "Beginner", 24);
   const source = sanitizeText(body.source || "Uploaded Source", 120);
@@ -387,7 +528,7 @@ app.get("/api/workspaces", requireAuth, async (req, res) => {
       userId: req.auth.user.id,
       title: seedTitle,
       sourceType: "PDF",
-      sourceUrl: "https://example.com/ai-governance-framework",
+      sourceUrl: "https://atlasiq-ops-platform.onrender.com",
       sourceContent:
         "This source establishes principles and operational guidelines for responsible AI adoption across the organization. Key themes include compliance, data privacy, human oversight, transparency, model risk management, and escalation paths for high-risk use cases.",
       mode: "Beginner",
@@ -435,6 +576,21 @@ app.post("/api/workspaces", requireAuth, async (req, res) => {
   res.json({ ok: true, workspace });
 });
 
+app.get("/api/workspaces/:id/export/pdf", requireAuth, async (req, res) => {
+  const workspaceId = sanitizeText(req.params.id || "", 120);
+  const workspace = req.auth.db.workspaces.find((item) => item.id === workspaceId && item.userId === req.auth.user.id);
+  if (!workspace) {
+    res.status(404).json({ ok: false, error: "Workspace not found." });
+    return;
+  }
+
+  const pdf = buildWorkspacePdf(workspace);
+  const filename = `${workspace.title.toLowerCase().replace(/[^a-z0-9]+/g, "-") || "workspace"}.pdf`;
+  res.setHeader("Content-Type", "application/pdf");
+  res.setHeader("Content-Disposition", `attachment; filename="${filename}"`);
+  res.send(pdf);
+});
+
 app.post("/api/generate-insights", rateLimit, requireAuth, async (req, res) => {
   const content = sanitizeText(req.body?.content || "", 14001);
   const source = sanitizeText(req.body?.source || "Uploaded Source", 120);
@@ -475,6 +631,9 @@ app.get("*", (_req, res) => {
 app.listen(port, () => {
   console.log(`AtlasIQ Ops server running at http://localhost:${port}`);
 });
+
+
+
 
 
 

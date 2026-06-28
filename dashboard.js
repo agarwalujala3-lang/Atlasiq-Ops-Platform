@@ -75,7 +75,7 @@ const mapNodes = Array.from({ length: 6 }, (_item, index) => document.getElement
 const sampleContent = {
   title: "AI Governance Framework",
   type: "PDF",
-  url: "https://example.com/ai-governance-framework",
+  url: "https://atlasiq-ops-platform.onrender.com",
   content:
     "This source establishes principles and operational guidelines for responsible AI adoption across the organization. Key themes include compliance, data privacy, human oversight, transparency, model risk management, and escalation paths for high-risk use cases. Teams need structured summaries, cheat notes, flashcards, and review recommendations linked to source evidence."
 };
@@ -466,4 +466,5 @@ fetchSession().then((nextSession) => {
     showApp();
   }
 });
+
 

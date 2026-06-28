@@ -1,4 +1,4 @@
-import { exportWorkspace, formatSavedTime, getWorkspaces, hydrateNav, hydrateUserCard } from "./shared.js";
+import { downloadAuthenticatedFile, exportWorkspace, formatSavedTime, getWorkspaces, hydrateNav, hydrateUserCard } from "./shared.js";
 
 const savedWorkspaceGrid = document.getElementById("savedWorkspaceGrid");
 const workspaceTotal = document.getElementById("workspaceTotal");
@@ -23,6 +23,7 @@ async function renderWorkspaces() {
         </div>
         <div class="workspace-snippet">${item.outputs?.summary?.[0]?.text || "No summary available."}</div>
         <div class="toolbar-row">
+          <button class="btn btn-primary export-btn" data-id="${item.id}" data-format="pdf" type="button">Export PDF</button>
           <button class="btn btn-soft export-btn" data-id="${item.id}" data-format="markdown" type="button">Export MD</button>
           <button class="btn btn-ghost export-btn" data-id="${item.id}" data-format="json" type="button">Export JSON</button>
         </div>
@@ -31,15 +32,22 @@ async function renderWorkspaces() {
     : `<article class="panel"><strong>No workspaces saved yet</strong><p class="muted">Generate insights from the dashboard and save a snapshot to see it here.</p></article>`;
 
   document.querySelectorAll(".export-btn").forEach((button) => {
-    button.addEventListener("click", () => {
+    button.addEventListener("click", async () => {
       const workspace = saved.find((item) => item.id === button.dataset.id);
-      if (workspace) {
-        exportWorkspace(workspace, button.dataset.format);
+      if (!workspace) {
+        return;
       }
+      if (button.dataset.format === "pdf") {
+        await downloadAuthenticatedFile(
+          `/api/workspaces/${workspace.id}/export/pdf`,
+          `${workspace.title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}.pdf`
+        );
+        return;
+      }
+      exportWorkspace(workspace, button.dataset.format);
     });
   });
 }
 
 hydrateNav();
 hydrateUserCard().then(() => renderWorkspaces());
-

@@ -8,9 +8,9 @@ Production app URL:
 
 ## Current Hosting Reference
 
-This is the public URL that should be used in project docs, demos, and sharing links:
+This is the single public URL that should be used in project docs, demos, and sharing links:
 
-- https://atlasiq-ops-platform.onrender.com
+- https://atlasiq-ops-platform.onrender.com/
 
 ## Recommended Production Notes
 
@@ -25,7 +25,5 @@ This Render URL should be used as the single hosted app address for both fronten
 
 - `OPENAI_API_KEY`
 - `OPENAI_MODEL=gpt-4.1-mini`
-- `DB_PATH=./db.json`
-- `APP_BASE_URL=https://atlasiq-ops-platform.onrender.com`
-
-
+- `DB_PATH=/var/data/atlasiq-ops-db.json`
+- `APP_BASE_URL=https://atlasiq-ops-platform.onrender.com/`

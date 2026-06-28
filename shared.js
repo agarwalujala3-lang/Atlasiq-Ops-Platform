@@ -50,6 +50,35 @@ export async function apiFetch(path, options = {}) {
   return data;
 }
 
+export async function downloadAuthenticatedFile(path, filename) {
+  const session = getSession();
+  const headers = new Headers();
+  if (session?.token) {
+    headers.set("Authorization", `Bearer ${session.token}`);
+  }
+  const response = await fetch(path, {
+    method: "GET",
+    headers
+  });
+  if (!response.ok) {
+    let message = "Download failed";
+    try {
+      const data = await response.json();
+      message = data?.error || message;
+    } catch (_error) {
+    }
+    throw new Error(message);
+  }
+  const blob = await response.blob();
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(link.href);
+}
+
 export async function fetchSession() {
   const session = getSession();
   if (!session?.token) {
@@ -117,7 +146,6 @@ export async function hydrateUserCard() {
       try {
         await apiFetch("/api/auth/logout", { method: "POST" });
       } catch (_error) {
-        // Clear client session even if the server token is already gone.
       }
       clearSession();
       window.location.href = "./index.html";
@@ -162,4 +190,3 @@ export function exportWorkspace(workspace, format) {
   document.body.removeChild(link);
   URL.revokeObjectURL(link.href);
 }
-
