@@ -2,9 +2,9 @@
 
 > AI-powered visual knowledge transformation platform
 
-[![Live App](https://img.shields.io/badge/Live%20App-atlasiq--ops--platform.netlify.app-F17A18?style=for-the-badge)](https://atlasiq-ops-platform.netlify.app/)
-[![Status](https://img.shields.io/badge/Status-Live-16986F?style=for-the-badge)](https://atlasiq-ops-platform.netlify.app/)
-[![Frontend + API](https://img.shields.io/badge/Single%20Public%20URL-Netlify-1F3748?style=for-the-badge)](https://atlasiq-ops-platform.netlify.app/)
+[![Live App](https://img.shields.io/badge/Live%20App-atlasiq--ops--platform.onrender.com-F17A18?style=for-the-badge)](https://atlasiq-ops-platform.onrender.com/)
+[![Status](https://img.shields.io/badge/Status-Live-16986F?style=for-the-badge)](https://atlasiq-ops-platform.onrender.com/)
+[![Frontend + API](https://img.shields.io/badge/Single%20Public%20URL-Render-1F3748?style=for-the-badge)](https://atlasiq-ops-platform.onrender.com/)
 
 ![AtlasIQ Ops Preview](./assets/atlasiq-ops-preview.svg)
 
@@ -12,7 +12,7 @@ AtlasIQ Ops transforms unstructured learning material into structured, visual, d
 
 ## Live
 
-- Product and API entry: [atlasiq-ops-platform.netlify.app](https://atlasiq-ops-platform.netlify.app/)
+- Product and API entry: [atlasiq-ops-platform.onrender.com](https://atlasiq-ops-platform.onrender.com/)
 
 ## Why It Exists
 
@@ -51,7 +51,7 @@ flowchart LR
 - Source traceability framing for generated insights
 - Export support for PDF, Markdown, and JSON
 - Light premium UI with responsive layouts, motion, and visual panels
-- Single public Netlify URL with API requests proxied behind `/api/*`
+- Single public Render URL serving both frontend and backend
 
 ## UI Structure
 
@@ -97,18 +97,17 @@ flowchart LR
 - Backend: Node.js, Express
 - Auth/session model: server-backed token flow with browser session persistence
 - Export pipeline: browser export helpers plus backend PDF route
-- Hosting: Netlify public app URL with proxied API requests to backend service
+- Hosting: Render single public URL for both frontend and backend
 
 ## Architecture
 
 ```mermaid
 flowchart TB
-    U["User"] --> N["Netlify Public URL"]
-    N --> F["Frontend UI"]
-    N --> P["/api Proxy"]
-    P --> B["Backend Service"]
-    B --> O["OpenAI-backed Generation"]
-    B --> D["Workspace Persistence"]
+    U["User"] --> R["Render Public URL"]
+    R --> F["Frontend UI"]
+    R --> A["API Routes"]
+    A --> O["OpenAI-backed Generation"]
+    A --> D["Workspace Persistence"]
     F --> E["Export Actions"]
 ```
 
@@ -116,24 +115,24 @@ flowchart TB
 
 ```text
 .
-├── index.html
-├── workspaces.html
-├── review.html
-├── reports.html
-├── exports.html
-├── admin.html
-├── styles.css
-├── dashboard.js
-├── workspaces.js
-├── review.js
-├── reports.js
-├── exports.js
-├── admin.js
-├── shared.js
-├── server.js
-├── netlify.toml
-├── render.yaml
-└── DEPLOY.md
+|- index.html
+|- workspaces.html
+|- review.html
+|- reports.html
+|- exports.html
+|- admin.html
+|- styles.css
+|- dashboard.js
+|- workspaces.js
+|- review.js
+|- reports.js
+|- exports.js
+|- admin.js
+|- shared.js
+|- server.js
+|- render.yaml
+|- DEPLOY.md
+`- assets/
 ```
 
 ## Local Setup
@@ -154,14 +153,13 @@ Create `.env` from `.env.example` and add your backend configuration, including 
 npm start
 ```
 
-Then open the frontend locally in your browser and use the local server as the API source.
+Then open the local server URL in your browser.
 
 ## Deployment Notes
 
-- Public product URL: Netlify
-- API requests from the frontend go to `/api/*`
-- `netlify.toml` proxies those requests to the backend service
-- Users only need the Netlify link
+- Public product URL: Render
+- Frontend and backend are served through one Render app
+- Users only need the Render link
 
 ## Security Notes
 
