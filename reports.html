@@ -7,19 +7,33 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet" />
   <link rel="stylesheet" href="./styles.css" />
 </head>
 <body data-page="reports">
+  <div class="site-chrome">
+    <div class="ambient ambient-a"></div>
+    <div class="ambient ambient-b"></div>
+    <div class="grid-fade"></div>
+  </div>
   <div class="page-shell">
     <aside class="sidebar">
-      <div class="brand"><div class="brand-mark">A</div><h1>AtlasIQ <span>Ops</span></h1></div>
+      <div class="sidebar-top">
+        <div class="brand">
+          <div class="brand-mark">A</div>
+          <div>
+            <h1>AtlasIQ <span>Ops</span></h1>
+            <p class="brand-subtitle">Knowledge operations platform</p>
+          </div>
+        </div>
+      </div>
       <nav class="nav">
-        <a class="nav-link" data-page="dashboard" href="./index.html">Home</a>
-        <a class="nav-link" data-page="workspaces" href="./workspaces.html">Workspaces</a>
-        <a class="nav-link" data-page="review" href="./review.html">Review & Study</a>
-        <a class="nav-link" data-page="reports" href="./reports.html">Reports</a>
-        <a class="nav-link" data-page="exports" href="./exports.html">Exports</a>
-        <a class="nav-link" data-page="admin" href="./admin.html">Admin</a>
+        <a class="nav-link" data-page="dashboard" href="./index.html"><i class="ri-home-5-line"></i><span>Home</span></a>
+        <a class="nav-link" data-page="workspaces" href="./workspaces.html"><i class="ri-stack-line"></i><span>Workspaces</span></a>
+        <a class="nav-link" data-page="review" href="./review.html"><i class="ri-book-open-line"></i><span>Review & Study</span></a>
+        <a class="nav-link" data-page="reports" href="./reports.html"><i class="ri-bar-chart-box-line"></i><span>Reports</span></a>
+        <a class="nav-link" data-page="exports" href="./exports.html"><i class="ri-share-forward-line"></i><span>Exports</span></a>
+        <a class="nav-link" data-page="admin" href="./admin.html"><i class="ri-shield-user-line"></i><span>Admin</span></a>
       </nav>
       <div class="sidebar-block">
         <div class="user-chip">
@@ -28,44 +42,63 @@
             <div id="userIdentity" class="user-name">Sophia Bennett</div>
             <div id="userMeta" class="muted">L&D Leader</div>
           </div>
-          <button id="logoutBtn" class="icon-btn" aria-label="Log out">x</button>
+          <button id="logoutBtn" class="icon-btn" aria-label="Log out" type="button"><i class="ri-logout-box-r-line"></i></button>
         </div>
       </div>
     </aside>
     <main class="main">
-      <header class="topbar">
+      <header class="topbar page-topbar">
         <div class="topbar-left">
-          <div>
+          <div class="hero-banner compact-banner">
             <div class="eyebrow">Reports</div>
-            <h2>Business-facing analytics, weak areas, and time saved.</h2>
+            <h2>Business-facing analytics, knowledge performance, and measurable time saved.</h2>
+            <p class="page-subcopy">Translate raw learning activity into clear KPI-style visibility for operations, onboarding, and instructional teams.</p>
           </div>
         </div>
       </header>
       <section class="page-strip">
-        <article class="metric-card">
-          <div class="metric-label">Time Saved</div>
-          <div id="reportSavedHours" class="metric-value">220 hrs</div>
+        <article class="metric-card"><div class="metric-label">Time Saved</div><div id="reportSavedHours" class="metric-value">220 hrs</div></article>
+        <article class="metric-card"><div class="metric-label">Avg. Comprehension</div><div id="reportComprehension" class="metric-value">76%</div></article>
+        <article class="metric-card"><div class="metric-label">Assets Created</div><div id="reportAssets" class="metric-value">3,674</div></article>
+      </section>
+      <section class="page-summary-grid">
+        <article class="page-summary-card">
+          <div class="page-summary-label">Why this matters</div>
+          <strong>Show ROI, not just output</strong>
+          <p class="muted">Reporting turns generated summaries and study activity into visible outcomes that teams can defend and improve.</p>
         </article>
-        <article class="metric-card">
-          <div class="metric-label">Avg. Comprehension</div>
-          <div id="reportComprehension" class="metric-value">76%</div>
-        </article>
-        <article class="metric-card">
-          <div class="metric-label">Assets Created</div>
-          <div id="reportAssets" class="metric-value">3,674</div>
+        <article class="page-summary-card accent">
+          <div class="page-summary-label">Best use case</div>
+          <strong>Weekly learning operations readout</strong>
+          <p class="muted">Use these views to spot weak areas, understand coverage quality, and decide what should be reviewed next.</p>
         </article>
       </section>
       <section class="review-page-grid">
         <article class="panel">
-          <div class="panel-title">Topic performance</div>
+          <div class="panel-head">
+            <div>
+              <div class="panel-title">Topic performance</div>
+              <p class="panel-copy">Compare topic understanding and learning-output quality across themes.</p>
+            </div>
+          </div>
           <div id="reportChartBars" class="chart-bars"></div>
         </article>
         <article class="panel">
-          <div class="panel-title">Recommendations</div>
+          <div class="panel-head">
+            <div>
+              <div class="panel-title">Recommendations</div>
+              <p class="panel-copy">Actions to improve retention, close weak areas, and study what matters next.</p>
+            </div>
+          </div>
           <div id="reportRecommendations" class="activity-list"></div>
         </article>
         <article class="panel">
-          <div class="panel-title">Source-linked insights</div>
+          <div class="panel-head">
+            <div>
+              <div class="panel-title">Source-linked insights</div>
+              <p class="panel-copy">Traceability notes that connect each insight back to the original content.</p>
+            </div>
+          </div>
           <div id="reportCitations" class="citation-list"></div>
         </article>
       </section>
@@ -74,4 +107,3 @@
   <script type="module" src="./reports.js"></script>
 </body>
 </html>
-

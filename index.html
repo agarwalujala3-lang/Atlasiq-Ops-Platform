@@ -7,43 +7,78 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet" />
   <link rel="stylesheet" href="./styles.css" />
 </head>
 <body data-page="dashboard">
+  <div class="site-chrome">
+    <div class="ambient ambient-a"></div>
+    <div class="ambient ambient-b"></div>
+    <div class="grid-fade"></div>
+  </div>
+
   <section id="authShell" class="auth-shell">
     <div class="auth-panel auth-panel-brand">
-      <div class="brand">
-        <div class="brand-mark">A</div>
-        <h1>AtlasIQ <span>Ops</span></h1>
+      <div class="brand-wrap">
+        <div class="brand">
+          <div class="brand-mark">A</div>
+          <h1>AtlasIQ <span>Ops</span></h1>
+        </div>
+        <div class="eyebrow">AI-powered visual knowledge transformation</div>
       </div>
-      <div class="eyebrow">Knowledge Operations Platform</div>
-      <h2>Transform raw content into visual, traceable, decision-ready learning assets.</h2>
-      <p class="muted">Built for students, onboarding teams, educators, and enterprise learning operations.</p>
+
+      <div class="auth-hero">
+        <div class="hero-copy">
+          <h2>Turn long-form content into visual, decision-ready learning systems.</h2>
+          <p class="muted">Built for onboarding teams, educators, students, and knowledge operations leaders who need summaries, concept maps, review assets, analytics, and exports from one secure workflow.</p>
+        </div>
+
+        <div class="hero-preview">
+          <div class="preview-header">
+            <span class="preview-pill"><i class="ri-shield-check-line"></i> Secure pipeline</span>
+            <span class="preview-pill"><i class="ri-sparkling-line"></i> Multi-output AI</span>
+          </div>
+          <div class="preview-stage">
+            <div class="preview-orbit preview-orbit-a"></div>
+            <div class="preview-orbit preview-orbit-b"></div>
+            <div class="preview-core">AtlasIQ</div>
+            <div class="preview-node preview-node-a">Summary</div>
+            <div class="preview-node preview-node-b">Graph</div>
+            <div class="preview-node preview-node-c">Quiz</div>
+            <div class="preview-node preview-node-d">Exports</div>
+          </div>
+        </div>
+      </div>
+
       <div class="auth-metrics">
         <article class="metric-card">
           <div class="metric-label">Core workflow</div>
-          <div class="metric-value">5 steps</div>
-          <div class="muted">ingest, extract, visualize, review, export</div>
+          <div class="metric-value">5 stages</div>
+          <div class="muted">ingest, extract, transform, review, export</div>
         </article>
         <article class="metric-card">
-          <div class="metric-label">Security</div>
-          <div class="metric-value">Server-backed</div>
-          <div class="muted">real users, real sessions, persisted workspaces</div>
+          <div class="metric-label">Output system</div>
+          <div class="metric-value">Role-aware</div>
+          <div class="muted">structured summaries, visuals, cheat notes, flashcards</div>
         </article>
         <article class="metric-card">
-          <div class="metric-label">Output modes</div>
-          <div class="metric-value">Multi-format</div>
-          <div class="muted">summary, graph, cheat sheet, flashcards, quiz</div>
+          <div class="metric-label">Security posture</div>
+          <div class="metric-value">Per-user</div>
+          <div class="muted">server sessions, secure generation, persisted history</div>
         </article>
       </div>
     </div>
-    <div class="auth-panel">
+
+    <div class="auth-panel auth-panel-form">
       <div class="eyebrow">Secure Access</div>
-      <h2>Open your workspace</h2>
-      <div class="tab-row">
+      <h2>Open your operations workspace</h2>
+      <p class="muted">Use your account to access stored workspaces, study assets, exports, and traceable AI outputs.</p>
+
+      <div class="tab-row auth-tabs">
         <button id="loginModeBtn" class="tab-btn active" type="button">Login</button>
-        <button id="registerModeBtn" class="tab-btn" type="button">Create Account</button>
+        <button id="registerModeBtn" class="tab-btn" type="button">Create account</button>
       </div>
+
       <form id="authForm" class="auth-form">
         <label class="field-group">
           <span class="mini-label">Full name</span>
@@ -72,28 +107,40 @@
             <input id="authTeamInput" type="text" placeholder="Revenue Enablement" />
           </label>
         </div>
-        <button id="authSubmitBtn" class="btn btn-primary" type="submit">Login to Dashboard</button>
+        <button id="authSubmitBtn" class="btn btn-primary btn-block" type="submit">Login to Dashboard</button>
       </form>
+
+      <div class="security-stack">
+        <div class="security-item"><i class="ri-lock-2-line"></i><span>Encrypted server-backed sessions</span></div>
+        <div class="security-item"><i class="ri-file-shield-line"></i><span>Traceable workspace snapshots and exports</span></div>
+        <div class="security-item"><i class="ri-user-settings-line"></i><span>Role and team-aware knowledge workflows</span></div>
+      </div>
       <p id="authStatus" class="muted">Your account and workspace history are stored securely on the server.</p>
     </div>
   </section>
 
   <div id="appShell" class="page-shell hidden">
     <aside class="sidebar">
-      <div class="brand">
-        <div class="brand-mark">A</div>
-        <h1>AtlasIQ <span>Ops</span></h1>
+      <div class="sidebar-top">
+        <div class="brand">
+          <div class="brand-mark">A</div>
+          <div>
+            <h1>AtlasIQ <span>Ops</span></h1>
+            <p class="brand-subtitle">Knowledge operations platform</p>
+          </div>
+        </div>
+        <button class="workspace-switch workspace-switch-compact" type="button"><i class="ri-layout-grid-line"></i> All Workspaces</button>
       </div>
 
       <nav class="nav">
-        <a class="nav-link" data-page="dashboard" href="./index.html">Home</a>
-        <a class="nav-link" data-page="workspaces" href="./workspaces.html">Workspaces</a>
-        <a class="nav-link" href="./index.html#ingestion">Ingestion</a>
-        <a class="nav-link" href="./index.html#insights">Insight Studio</a>
-        <a class="nav-link" data-page="review" href="./review.html">Review & Study</a>
-        <a class="nav-link" data-page="reports" href="./reports.html">Reports</a>
-        <a class="nav-link" data-page="exports" href="./exports.html">Exports</a>
-        <a class="nav-link" data-page="admin" href="./admin.html">Admin</a>
+        <a class="nav-link" data-page="dashboard" href="./index.html"><i class="ri-home-5-line"></i><span>Home</span></a>
+        <a class="nav-link" data-page="workspaces" href="./workspaces.html"><i class="ri-stack-line"></i><span>Workspaces</span></a>
+        <a class="nav-link" href="./index.html#ingestion"><i class="ri-upload-cloud-2-line"></i><span>Ingestion</span></a>
+        <a class="nav-link" href="./index.html#insights"><i class="ri-mind-map"></i><span>Insight Studio</span></a>
+        <a class="nav-link" data-page="review" href="./review.html"><i class="ri-book-open-line"></i><span>Review & Study</span></a>
+        <a class="nav-link" data-page="reports" href="./reports.html"><i class="ri-bar-chart-box-line"></i><span>Reports</span></a>
+        <a class="nav-link" data-page="exports" href="./exports.html"><i class="ri-share-forward-line"></i><span>Exports</span></a>
+        <a class="nav-link" data-page="admin" href="./admin.html"><i class="ri-shield-user-line"></i><span>Admin</span></a>
       </nav>
 
       <section class="sidebar-block">
@@ -103,9 +150,13 @@
 
       <section class="sidebar-block progress-card">
         <div class="sidebar-label">Your Progress</div>
-        <div class="progress-ring">72%</div>
-        <div class="muted">Weekly goal</div>
-        <strong>7.2 / 10 hrs</strong>
+        <div class="progress-shell">
+          <div class="progress-ring">72%</div>
+          <div>
+            <div class="muted">Weekly goal</div>
+            <strong>7.2 / 10 hrs</strong>
+          </div>
+        </div>
         <div class="mini-chart">
           <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
         </div>
@@ -115,50 +166,94 @@
     <main class="main">
       <header class="topbar">
         <div class="topbar-left">
-          <button class="workspace-switch">All Workspaces</button>
+          <button class="workspace-switch" type="button"><i class="ri-layout-grid-line"></i> All Workspaces</button>
+          <div class="hero-banner">
+            <div>
+              <div class="eyebrow">Overview</div>
+              <h2>Visual knowledge operations for faster learning and cleaner decisions.</h2>
+              <p class="page-subcopy">AtlasIQ Ops transforms raw knowledge into a repeatable operating system for comprehension, retention, and traceable team learning.</p>
+            </div>
+          </div>
         </div>
         <div class="topbar-right">
           <div class="search-box">
+            <i class="ri-search-line"></i>
             <input type="text" placeholder="Search across workspaces, content, insights..." />
+            <span class="search-key">Ctrl K</span>
           </div>
-          <button class="workspace-switch">May 12 - May 18, 2025</button>
-          <button class="btn btn-primary">+ Create</button>
-          <button id="notificationButton" class="icon-btn">6</button>
-          <button class="icon-btn" aria-label="Help">?</button>
+          <button class="workspace-switch" type="button"><i class="ri-calendar-line"></i> May 12 - May 18, 2025</button>
+          <button class="btn btn-primary" type="button"><i class="ri-add-line"></i> Create</button>
+          <button id="notificationButton" class="icon-btn" type="button" aria-label="Notifications">6</button>
+          <button class="icon-btn" type="button" aria-label="Help"><i class="ri-question-line"></i></button>
           <div class="user-chip">
             <div class="avatar">S</div>
             <div>
               <div id="userIdentity" class="user-name">Sophia Bennett</div>
               <div id="userMeta" class="muted">L&D Leader</div>
             </div>
-            <button id="logoutBtn" class="icon-btn" aria-label="Log out">x</button>
+            <button id="logoutBtn" class="icon-btn" aria-label="Log out" type="button"><i class="ri-logout-box-r-line"></i></button>
           </div>
         </div>
       </header>
 
-      <section class="overview-title">
-        <h2>Overview</h2>
+      <section class="dashboard-spotlight-grid">
+        <article class="dashboard-spotlight-card spotlight-main">
+          <div class="spotlight-shell">
+            <div class="spotlight-copy">
+              <div class="eyebrow">Operations Signal</div>
+              <h3>One source becomes a complete learning system in one workflow.</h3>
+              <p class="muted">Upload a source, generate structured outputs, review the knowledge graph, export role-friendly artifacts, and revisit weak areas without losing traceability.</p>
+              <div class="spotlight-pill-row">
+                <span class="spotlight-pill">Summary-first</span>
+                <span class="spotlight-pill">Traceable outputs</span>
+                <span class="spotlight-pill">Review-aware</span>
+              </div>
+            </div>
+            <div class="spotlight-figure">
+              <div class="spotlight-node node-core">Source</div>
+              <div class="spotlight-node node-1">Summary</div>
+              <div class="spotlight-node node-2">Graph</div>
+              <div class="spotlight-node node-3">Quiz</div>
+              <div class="spotlight-node node-4">Export</div>
+            </div>
+          </div>
+        </article>
+        <article class="dashboard-spotlight-card">
+          <div class="page-summary-label">Pipeline Health</div>
+          <strong>3 active sources in transformation</strong>
+          <p class="muted">Generation, traceability, and review outputs are moving through the same secure pipeline.</p>
+          <div class="micro-stat-row">
+            <span>98.4% source integrity</span>
+            <span>24 saved workspaces</span>
+          </div>
+        </article>
+        <article class="dashboard-spotlight-card">
+          <div class="page-summary-label">Recommended Action</div>
+          <strong>Prioritize weak-topic review this week</strong>
+          <p class="muted">Comprehension is rising, but weak areas still suggest the next highest-return study effort.</p>
+          <a class="text-link" href="./review.html">Open review mode</a>
+        </article>
       </section>
 
       <section class="metric-grid">
         <article class="metric-card">
           <div class="metric-label">Total Workspaces</div>
-          <div class="metric-row"><div id="metricSavedCount" class="metric-value">24</div><div class="metric-icon purple"></div></div>
+          <div class="metric-row"><div id="metricSavedCount" class="metric-value">24</div><div class="metric-icon purple"><i class="ri-folder-5-line"></i></div></div>
           <div class="metric-trend">+ 14% vs last 7 days</div>
         </article>
         <article class="metric-card">
           <div class="metric-label">Documents Processed</div>
-          <div class="metric-row"><div id="metricSourcesProcessed" class="metric-value">1,248</div><div class="metric-icon orange"></div></div>
+          <div class="metric-row"><div id="metricSourcesProcessed" class="metric-value">1,248</div><div class="metric-icon orange"><i class="ri-file-list-3-line"></i></div></div>
           <div class="metric-trend">+ 28% vs last 7 days</div>
         </article>
         <article class="metric-card">
           <div class="metric-label">Knowledge Assets</div>
-          <div class="metric-row"><div id="metricAssetsCreated" class="metric-value">3,674</div><div class="metric-icon orange"></div></div>
+          <div class="metric-row"><div id="metricAssetsCreated" class="metric-value">3,674</div><div class="metric-icon orange"><i class="ri-stack-line"></i></div></div>
           <div class="metric-trend">+ 21% vs last 7 days</div>
         </article>
         <article class="metric-card">
           <div class="metric-label">Active Learners</div>
-          <div class="metric-row"><div class="metric-value">812</div><div class="metric-icon purple"></div></div>
+          <div class="metric-row"><div class="metric-value">812</div><div class="metric-icon purple"><i class="ri-user-follow-line"></i></div></div>
           <div class="metric-trend">+ 18% vs last 7 days</div>
         </article>
         <article class="metric-card">
@@ -168,7 +263,7 @@
         </article>
         <article class="metric-card">
           <div class="metric-label">Time Saved</div>
-          <div class="metric-row"><div id="metricSavedHours" class="metric-value">220 hrs</div><div class="metric-icon orange"></div></div>
+          <div class="metric-row"><div id="metricSavedHours" class="metric-value">220 hrs</div><div class="metric-icon orange"><i class="ri-time-line"></i></div></div>
           <div class="metric-trend">+ 31% vs last 7 days</div>
         </article>
       </section>
@@ -176,15 +271,18 @@
       <section class="dashboard-grid">
         <article id="ingestion" class="panel panel-upload">
           <div class="panel-head">
-            <div class="panel-title">Content Ingestion</div>
-            <div class="secure-pill">Secure upload</div>
+            <div>
+              <div class="panel-title">Content Ingestion</div>
+              <p class="panel-copy">Upload or paste content to start a structured knowledge workflow.</p>
+            </div>
+            <div class="secure-pill"><i class="ri-shield-check-line"></i> Secure upload</div>
           </div>
 
           <form id="ingestForm" class="ingest-form">
             <div class="upload-drop">
-              <div class="upload-icon"></div>
-              <h3>Drag & drop files here</h3>
-              <p>Supports PDF, DOCX, PPTX, XLSX, TXT, MD, URL</p>
+              <div class="upload-icon"><i class="ri-upload-cloud-2-line"></i></div>
+              <h3>Drag, drop, or connect a knowledge source</h3>
+              <p>Supports PDF, DOCX, PPTX, XLSX, TXT, MD, notes, and video links.</p>
               <div class="toolbar-row">
                 <button id="sampleContentBtn" class="btn btn-soft" type="button">Load sample</button>
                 <button class="btn btn-primary" type="submit">Generate insights</button>
@@ -230,11 +328,16 @@
         </article>
 
         <article id="insights" class="panel panel-summary">
-          <div class="panel-title">Insight Studio</div>
+          <div class="panel-head">
+            <div>
+              <div class="panel-title">Insight Studio</div>
+              <p class="panel-copy">Move between structured outputs for different audiences and difficulty levels.</p>
+            </div>
+          </div>
           <div class="tab-row">
-            <button class="tab-btn mode-btn active" data-mode="Beginner">Structured Summary</button>
-            <button class="tab-btn mode-btn" data-mode="Exam">Highlights</button>
-            <button class="tab-btn mode-btn" data-mode="Advanced">Chapters</button>
+            <button class="tab-btn mode-btn active" data-mode="Beginner" type="button">Structured Summary</button>
+            <button class="tab-btn mode-btn" data-mode="Exam" type="button">Highlights</button>
+            <button class="tab-btn mode-btn" data-mode="Advanced" type="button">Chapters</button>
           </div>
           <div id="summaryList" class="summary-list"></div>
           <div class="toolbar-row">
@@ -251,10 +354,16 @@
 
         <article class="panel panel-map">
           <div class="panel-head">
-            <div class="panel-title">Knowledge Map</div>
+            <div>
+              <div class="panel-title">Knowledge Map</div>
+              <p class="panel-copy">A larger visual graph for key topics, relationships, and study pivots.</p>
+            </div>
             <button class="btn btn-ghost" type="button">View fullscreen</button>
           </div>
           <div id="knowledgeMap" class="knowledge-map">
+            <div class="map-orbit orbit-a"></div>
+            <div class="map-orbit orbit-b"></div>
+            <div class="map-orbit orbit-c"></div>
             <div id="coreNode" class="map-core">AI Governance</div>
             <div id="mapNode0" class="map-node node-a">Compliance</div>
             <div id="mapNode1" class="map-node node-b">Transparency</div>
@@ -267,7 +376,10 @@
 
         <article class="panel panel-charts">
           <div class="panel-head">
-            <div class="panel-title">Charts</div>
+            <div>
+              <div class="panel-title">Charts</div>
+              <p class="panel-copy">Comprehension by topic and performance pattern signals.</p>
+            </div>
             <select class="chart-filter">
               <option>Comprehension by Topic</option>
             </select>
@@ -277,34 +389,44 @@
 
         <article class="panel panel-cheat">
           <div class="panel-head">
-            <div class="panel-title">Cheat Notes</div>
+            <div>
+              <div class="panel-title">Cheat Notes</div>
+              <p class="panel-copy">Fast operational takeaways for reuse, onboarding, or revision.</p>
+            </div>
             <button id="exportMarkdownBtn" class="btn btn-ghost" type="button">Export MD</button>
           </div>
           <ul id="cheatGrid" class="cheat-list"></ul>
         </article>
 
         <article class="panel panel-flashcard">
-          <div class="tab-row">
-            <button class="tab-btn active" type="button">Flashcards</button>
-            <button class="tab-btn" type="button">Quiz</button>
-          </div>
-          <div class="flashcard-toolbar">
-            <span id="flashcardCounter">1 / 3</span>
-            <div class="flashcard-actions">
-              <button id="prevFlashcardBtn" class="icon-btn" type="button"><</button>
-              <button id="toggleFlashcardBtn" class="icon-btn" type="button">?</button>
-              <button id="nextFlashcardBtn" class="icon-btn" type="button">></button>
+          <div class="panel-head">
+            <div class="tab-row compact-tabs">
+              <button class="tab-btn active" type="button">Flashcards</button>
+              <button class="tab-btn" type="button">Quiz</button>
+            </div>
+            <div class="flashcard-toolbar">
+              <span id="flashcardCounter">1 / 3</span>
+              <div class="flashcard-actions">
+                <button id="prevFlashcardBtn" class="icon-btn" type="button"><i class="ri-arrow-left-s-line"></i></button>
+                <button id="toggleFlashcardBtn" class="icon-btn" type="button"><i class="ri-eye-line"></i></button>
+                <button id="nextFlashcardBtn" class="icon-btn" type="button"><i class="ri-arrow-right-s-line"></i></button>
+              </div>
             </div>
           </div>
           <div class="flashcard-box">
             <div id="flashcardPrompt" class="flashcard-question">What are the pillars of responsible AI?</div>
             <div id="flashcardAnswer" class="flashcard-answer hidden"></div>
           </div>
-          <div class="muted centered-copy">Click ? to reveal the answer</div>
+          <div class="muted centered-copy">Click the eye icon to reveal the answer</div>
         </article>
 
         <article class="panel panel-review">
-          <div class="panel-title">Review Mode</div>
+          <div class="panel-head">
+            <div>
+              <div class="panel-title">Review Mode</div>
+              <p class="panel-copy">Weak-topic detection, recommendation logic, and progress-aware study guidance.</p>
+            </div>
+          </div>
           <div id="reviewLayout" class="review-list"></div>
           <div class="recommendation-card">
             <div class="mini-label">Study Next Recommendation</div>
@@ -316,7 +438,10 @@
 
         <article class="panel panel-traceability">
           <div class="panel-head">
-            <div class="panel-title">Source Traceability</div>
+            <div>
+              <div class="panel-title">Source Traceability</div>
+              <p class="panel-copy">Show the chain from uploaded source to generated study asset.</p>
+            </div>
             <button id="exportJsonBtn" class="btn btn-ghost" type="button">Export JSON</button>
           </div>
           <div id="citationList" class="citation-list"></div>
@@ -328,7 +453,10 @@
 
         <article class="panel panel-admin-preview">
           <div class="panel-head">
-            <div class="panel-title">Admin & Settings</div>
+            <div>
+              <div class="panel-title">Admin & Settings</div>
+              <p class="panel-copy">Govern access, auditability, exports, privacy, and operations.</p>
+            </div>
             <a class="btn btn-ghost" href="./admin.html">Open admin</a>
           </div>
           <div class="admin-mini-tabs">
@@ -346,7 +474,10 @@
 
         <article class="panel panel-version">
           <div class="panel-head">
-            <div class="panel-title">Version History</div>
+            <div>
+              <div class="panel-title">Version History</div>
+              <p class="panel-copy">Saved iterations of study assets and workspace transformations.</p>
+            </div>
             <a class="text-link" href="./workspaces.html">View all versions</a>
           </div>
           <div id="versionList" class="activity-list"></div>
@@ -354,7 +485,10 @@
 
         <article class="panel panel-activity">
           <div class="panel-head">
-            <div class="panel-title">Activity Feed</div>
+            <div>
+              <div class="panel-title">Activity Feed</div>
+              <p class="panel-copy">Recent workspace actions across publishing, study, and revision.</p>
+            </div>
             <span class="muted">Live</span>
           </div>
           <div id="auditLog" class="activity-list"></div>
@@ -362,7 +496,10 @@
 
         <article class="panel panel-notify">
           <div class="panel-head">
-            <div class="panel-title">Notifications</div>
+            <div>
+              <div class="panel-title">Notifications</div>
+              <p class="panel-copy">Unread alerts and system-ready tasks.</p>
+            </div>
             <button id="clearNotificationsBtn" class="btn btn-ghost" type="button">Mark all read</button>
           </div>
           <div id="notificationList" class="activity-list"></div>
@@ -374,4 +511,3 @@
   <script type="module" src="./dashboard.js"></script>
 </body>
 </html>
-
