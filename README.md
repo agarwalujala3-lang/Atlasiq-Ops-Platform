@@ -3,16 +3,16 @@
 > AI-powered visual knowledge transformation platform
 
 [![Live App](https://img.shields.io/badge/Live%20App-atlasiq--ops--platform.netlify.app-F17A18?style=for-the-badge)](https://atlasiq-ops-platform.netlify.app/)
-[![API Service](https://img.shields.io/badge/API-atlasiq--ops--platform.onrender.com-138F89?style=for-the-badge)](https://atlasiq-ops-platform.onrender.com)
-[![Node](https://img.shields.io/badge/Node.js-Express-1F3748?style=for-the-badge)](#tech-stack)
 [![Status](https://img.shields.io/badge/Status-Live-16986F?style=for-the-badge)](https://atlasiq-ops-platform.netlify.app/)
+[![Frontend + API](https://img.shields.io/badge/Single%20Public%20URL-Netlify-1F3748?style=for-the-badge)](https://atlasiq-ops-platform.netlify.app/)
+
+![AtlasIQ Ops Preview](./assets/atlasiq-ops-preview.svg)
 
 AtlasIQ Ops transforms unstructured learning material into structured, visual, decision-ready knowledge assets. Users can upload or paste source content, generate summaries and study outputs, explore concept maps and charts, revisit saved workspaces, and export reusable learning artifacts.
 
 ## Live
 
-- Product: [atlasiq-ops-platform.netlify.app](https://atlasiq-ops-platform.netlify.app/)
-- Backend service: [atlasiq-ops-platform.onrender.com](https://atlasiq-ops-platform.onrender.com)
+- Product and API entry: [atlasiq-ops-platform.netlify.app](https://atlasiq-ops-platform.netlify.app/)
 
 ## Why It Exists
 
@@ -51,6 +51,7 @@ flowchart LR
 - Source traceability framing for generated insights
 - Export support for PDF, Markdown, and JSON
 - Light premium UI with responsive layouts, motion, and visual panels
+- Single public Netlify URL with API requests proxied behind `/api/*`
 
 ## UI Structure
 
@@ -96,20 +97,19 @@ flowchart LR
 - Backend: Node.js, Express
 - Auth/session model: server-backed token flow with browser session persistence
 - Export pipeline: browser export helpers plus backend PDF route
-- Hosting: Netlify for product entry, Render for API service
+- Hosting: Netlify public app URL with proxied API requests to backend service
 
 ## Architecture
 
 ```mermaid
 flowchart TB
-    U["User"] --> F["Frontend UI"]
-    F --> A["Auth + Session"]
-    F --> G["Insight Generation API"]
-    F --> W["Workspace APIs"]
-    G --> O["OpenAI-backed Generation"]
-    W --> D["Server Persistence Layer"]
+    U["User"] --> N["Netlify Public URL"]
+    N --> F["Frontend UI"]
+    N --> P["/api Proxy"]
+    P --> B["Backend Service"]
+    B --> O["OpenAI-backed Generation"]
+    B --> D["Workspace Persistence"]
     F --> E["Export Actions"]
-    E --> P["PDF / Markdown / JSON Outputs"]
 ```
 
 ## Project Structure
@@ -131,6 +131,7 @@ flowchart TB
 ├── admin.js
 ├── shared.js
 ├── server.js
+├── netlify.toml
 ├── render.yaml
 └── DEPLOY.md
 ```
@@ -145,7 +146,7 @@ npm install
 
 ### 2. Configure environment
 
-Create `.env` from `.env.example` and add your server configuration, including the OpenAI API key on the backend only.
+Create `.env` from `.env.example` and add your backend configuration, including the OpenAI API key on the server only.
 
 ### 3. Start the app
 
@@ -153,7 +154,14 @@ Create `.env` from `.env.example` and add your server configuration, including t
 npm start
 ```
 
-Then open the frontend locally in your browser and connect it to the running backend service.
+Then open the frontend locally in your browser and use the local server as the API source.
+
+## Deployment Notes
+
+- Public product URL: Netlify
+- API requests from the frontend go to `/api/*`
+- `netlify.toml` proxies those requests to the backend service
+- Users only need the Netlify link
 
 ## Security Notes
 
