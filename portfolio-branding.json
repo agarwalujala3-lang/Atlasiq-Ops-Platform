@@ -1,0 +1,68 @@
+﻿{
+  "enabled": true,
+  "id": "atlasiq-ops",
+  "title": "AtlasIQ Ops",
+  "kind": "Knowledge Operations Platform",
+  "status": "Live + GitHub",
+  "priority": 104,
+  "featured": true,
+  "badge": "AI knowledge ops platform",
+  "icon": "AIQ",
+  "summary": "I built AtlasIQ Ops as an AI-powered visual knowledge transformation platform that turns raw learning material into summaries, concept maps, charts, cheat notes, flashcards, and review workflows.",
+  "proof": "This project proves full-stack product execution across authentication, per-user workspaces, secure upload workflows, AI-generated learning assets, visual dashboards, and Render deployment.",
+  "details": [
+    "Built authenticated per-user workspaces with register/login/session flows and server-backed storage.",
+    "Created a multi-output insight studio for summaries, concept graphs, charts, cheat notes, flashcards, citations, timelines, and recommendations.",
+    "Polished the interface with premium light-study visuals, responsive grids, animation layers, and recruiter-friendly demo access."
+  ],
+  "architecture": [
+    "Express serves the product UI, auth APIs, workspace APIs, exports, and AI generation routes from one Render URL.",
+    "Session tokens and password hashes protect user access while workspace records stay user-scoped in the server data store.",
+    "Content ingestion accepts pasted text, source links, file metadata, role, audience, and difficulty settings.",
+    "The generation layer returns structured knowledge assets that feed cards, graphs, review mode, analytics, and exports.",
+    "Render auto-deploys the GitHub-backed service with persistent disk-backed data configuration."
+  ],
+  "tradeoff": "I prioritized a deployable single-service product with polished workflow depth first; deeper document parsing, OCR, and team collaboration can be expanded as the next enterprise layer.",
+  "tags": [
+    "ai",
+    "full-stack",
+    "auth",
+    "product",
+    "render",
+    "repo"
+  ],
+  "stack": [
+    "Node.js",
+    "Express.js",
+    "JavaScript",
+    "OpenAI API",
+    "HTML",
+    "CSS",
+    "Render"
+  ],
+  "links": {
+    "live": "https://atlasiq-ops-platform.onrender.com/",
+    "repo": "https://github.com/agarwalujala3-lang/Atlasiq-Ops-Platform"
+  },
+  "theme": {
+    "surface1": "rgba(247, 250, 248, 0.97)",
+    "surface2": "rgba(239, 246, 243, 0.95)",
+    "ring": "rgba(18, 165, 148, 0.2)",
+    "glow": "rgba(255, 122, 26, 0.22)",
+    "glowSoft": "rgba(18, 165, 148, 0.18)",
+    "accentStrong": "#0f766e",
+    "accentSoft": "rgba(18, 165, 148, 0.13)",
+    "badgeBg": "rgba(255, 122, 26, 0.12)",
+    "badgeBorder": "rgba(255, 122, 26, 0.24)",
+    "proofBg": "linear-gradient(135deg, rgba(255, 122, 26, 0.16), rgba(18, 165, 148, 0.14))",
+    "signalBg": "rgba(247, 252, 250, 0.86)",
+    "signalBorder": "rgba(18, 165, 148, 0.2)",
+    "iconBg": "linear-gradient(145deg, rgba(255, 244, 232, 1), rgba(224, 246, 242, 0.98))"
+  },
+  "lensPriority": {
+    "recruiter": 104,
+    "engineer": 98,
+    "founder": 104,
+    "friend": 82
+  }
+}
