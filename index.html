@@ -71,14 +71,13 @@
 
     <div class="auth-panel auth-panel-form">
       <div class="eyebrow">Secure Access</div>
-      <h2>Open your operations workspace</h2>
-      <p class="muted">Use your account to access stored workspaces, study assets, exports, and traceable AI outputs.</p>
+      <h2>Enter the knowledge operations console</h2>
+      <p class="muted">Create a workspace account in seconds, or use demo access to inspect the full product without guessing credentials.</p>
 
       <div class="tab-row auth-tabs">
-        <button id="loginModeBtn" class="tab-btn active" type="button">Login</button>
-        <button id="registerModeBtn" class="tab-btn" type="button">Create account</button>
+        <button id="registerModeBtn" class="tab-btn active" type="button">Create account</button>
+        <button id="loginModeBtn" class="tab-btn" type="button">Login</button>
       </div>
-
       <form id="authForm" class="auth-form">
         <label class="field-group">
           <span class="mini-label">Full name</span>
@@ -107,15 +106,20 @@
             <input id="authTeamInput" type="text" placeholder="Revenue Enablement" />
           </label>
         </div>
-        <button id="authSubmitBtn" class="btn btn-primary btn-block" type="submit">Login to Dashboard</button>
+        <button id="authSubmitBtn" class="btn btn-primary btn-block" type="submit">Create Account</button>
       </form>
 
+      <div class="auth-divider"><span>or</span></div>
+      <button id="demoAccessBtn" class="btn btn-ghost btn-block demo-access-btn" type="button">
+        <i class="ri-magic-line"></i>
+        Open demo workspace
+      </button>
       <div class="security-stack">
         <div class="security-item"><i class="ri-lock-2-line"></i><span>Encrypted server-backed sessions</span></div>
         <div class="security-item"><i class="ri-file-shield-line"></i><span>Traceable workspace snapshots and exports</span></div>
         <div class="security-item"><i class="ri-user-settings-line"></i><span>Role and team-aware knowledge workflows</span></div>
       </div>
-      <p id="authStatus" class="muted">Your account and workspace history are stored securely on the server.</p>
+      <p id="authStatus" class="muted">New here? Keep Create account selected. Existing users can switch to Login.</p>
     </div>
   </section>
 

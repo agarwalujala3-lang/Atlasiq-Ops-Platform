@@ -19,6 +19,14 @@ const requestBuckets = new Map();
 let writeQueue = Promise.resolve();
 
 app.use(express.json({ limit: "3mb" }));
+
+app.use((error, _req, res, next) => {
+  if (error instanceof SyntaxError && error.status === 400 && "body" in error) {
+    res.status(400).json({ ok: false, error: "Invalid JSON payload." });
+    return;
+  }
+  next(error);
+});
 app.use(express.static(__dirname));
 
 function bucketKey(req) {
@@ -481,10 +489,21 @@ app.post("/api/auth/register", rateLimit, async (req, res) => {
 app.post("/api/auth/login", rateLimit, async (req, res) => {
   const email = normalizeEmail(req.body?.email || "");
   const password = sanitizeText(req.body?.password || "", 200);
+
+  if (!email || !password) {
+    res.status(400).json({ ok: false, error: "Email and password are required to sign in." });
+    return;
+  }
+
   const db = await readDb();
   const user = db.users.find((item) => item.email === email);
-  if (!user || !verifyPassword(password, user.passwordHash)) {
-    res.status(401).json({ ok: false, error: "Invalid email or password." });
+  if (!user) {
+    res.status(404).json({ ok: false, error: "No account exists for this email. Please create an account first." });
+    return;
+  }
+
+  if (!verifyPassword(password, user.passwordHash)) {
+    res.status(401).json({ ok: false, error: "Password did not match this account. Please try again." });
     return;
   }
 
@@ -500,7 +519,6 @@ app.post("/api/auth/login", rateLimit, async (req, res) => {
 
   res.json({ ok: true, token, user: publicUser(user) });
 });
-
 app.get("/api/auth/session", requireAuth, async (req, res) => {
   res.json({ ok: true, user: publicUser(req.auth.user) });
 });
@@ -631,10 +649,3 @@ app.get("*", (_req, res) => {
 app.listen(port, () => {
   console.log(`AtlasIQ Ops server running at http://localhost:${port}`);
 });
-
-
-
-
-
-
-

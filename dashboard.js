@@ -22,6 +22,7 @@ const authRoleInput = document.getElementById("authRoleInput");
 const authTeamInput = document.getElementById("authTeamInput");
 const authStatus = document.getElementById("authStatus");
 const authSubmitBtn = document.getElementById("authSubmitBtn");
+const demoAccessBtn = document.getElementById("demoAccessBtn");
 const userIdentity = document.getElementById("userIdentity");
 const userMeta = document.getElementById("userMeta");
 const logoutBtn = document.getElementById("logoutBtn");
@@ -80,7 +81,7 @@ const sampleContent = {
     "This source establishes principles and operational guidelines for responsible AI adoption across the organization. Key themes include compliance, data privacy, human oversight, transparency, model risk management, and escalation paths for high-risk use cases. Teams need structured summaries, cheat notes, flashcards, and review recommendations linked to source evidence."
 };
 
-let authMode = "login";
+let authMode = "register";
 let session = null;
 let latestPayload = null;
 let latestWorkspace = null;
@@ -114,8 +115,8 @@ function updateAuthMode() {
   registerModeBtn.classList.toggle("active", register);
   authSubmitBtn.textContent = register ? "Create Account" : "Login to Dashboard";
   authStatus.textContent = register
-    ? "Create a real account with persisted workspace history."
-    : "Login with your saved account to continue.";
+    ? "Create an account once, then use Login next time with the same email and password."
+    : "Use an existing account. If this email is new, switch back to Create account.";
 }
 
 function renderWorkspaceList() {
@@ -361,6 +362,8 @@ function exportCurrent(format) {
 
 async function submitAuth(event) {
   event.preventDefault();
+  authSubmitBtn.disabled = true;
+  authStatus.textContent = authMode === "register" ? "Creating secure workspace..." : "Checking your credentials...";
   const endpoint = authMode === "register" ? "/api/auth/register" : "/api/auth/login";
   try {
     const data = await apiFetch(endpoint, {
@@ -375,12 +378,41 @@ async function submitAuth(event) {
     });
     saveSession({ token: data.token, user: data.user });
     session = { token: data.token, user: data.user };
+    authStatus.textContent = "Access granted. Loading workspace...";
     showApp();
   } catch (error) {
     authStatus.textContent = error.message || "Authentication failed";
+  } finally {
+    authSubmitBtn.disabled = false;
   }
 }
 
+async function openDemoWorkspace() {
+  const stamp = Date.now();
+  const demoProfile = {
+    name: "Demo Operator",
+    email: `demo-${stamp}@atlasiq.local`,
+    password: `DemoPass${stamp}`,
+    role: "L&D Leader",
+    team: "AtlasIQ Demo"
+  };
+  demoAccessBtn.disabled = true;
+  authStatus.textContent = "Creating a temporary demo workspace...";
+  try {
+    const data = await apiFetch("/api/auth/register", {
+      method: "POST",
+      body: JSON.stringify(demoProfile)
+    });
+    saveSession({ token: data.token, user: data.user });
+    session = { token: data.token, user: data.user };
+    authStatus.textContent = "Demo workspace ready. Loading...";
+    showApp();
+  } catch (error) {
+    authStatus.textContent = error.message || "Demo access failed";
+  } finally {
+    demoAccessBtn.disabled = false;
+  }
+}
 loginModeBtn.addEventListener("click", () => {
   authMode = "login";
   updateAuthMode();
@@ -390,6 +422,7 @@ registerModeBtn.addEventListener("click", () => {
   updateAuthMode();
 });
 authForm.addEventListener("submit", submitAuth);
+demoAccessBtn.addEventListener("click", openDemoWorkspace);
 logoutBtn.addEventListener("click", async () => {
   try {
     await apiFetch("/api/auth/logout", { method: "POST" });
@@ -466,7 +499,3 @@ fetchSession().then((nextSession) => {
     showApp();
   }
 });
-
-
-
-

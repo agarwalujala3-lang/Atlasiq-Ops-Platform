@@ -1843,3 +1843,257 @@ textarea {
   }
 }
 
+
+/* Premium interaction layer */
+:root {
+  --ink: #121416;
+  --surface: rgba(255, 255, 255, 0.92);
+  --surface-2: rgba(244, 248, 247, 0.9);
+  --graphite: #20262c;
+  --steel: #5d6872;
+  --signal: #ff7a1a;
+  --mint: #12a594;
+  --gold: #d99b35;
+  --blue: #3d7bd9;
+  --violet: #7161ef;
+}
+
+body {
+  background:
+    linear-gradient(135deg, rgba(18, 20, 22, 0.05) 0%, transparent 34%),
+    linear-gradient(180deg, #f8fbfa 0%, #eef4f2 48%, #f8f2ea 100%);
+}
+
+.auth-shell {
+  background:
+    linear-gradient(90deg, rgba(18, 20, 22, 0.05) 1px, transparent 1px),
+    linear-gradient(rgba(18, 20, 22, 0.04) 1px, transparent 1px);
+  background-size: 42px 42px;
+}
+
+.auth-panel,
+.panel,
+.metric-card,
+.workspace-card,
+.status-card,
+.dashboard-spotlight-card,
+.page-summary-card {
+  border-radius: 14px;
+  border: 1px solid rgba(18, 20, 22, 0.1);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(246, 249, 248, 0.88));
+  box-shadow: 0 18px 50px rgba(32, 38, 44, 0.08);
+}
+
+.auth-panel-brand {
+  background:
+    linear-gradient(135deg, rgba(18, 20, 22, 0.94), rgba(34, 47, 55, 0.92)),
+    linear-gradient(180deg, rgba(255, 122, 26, 0.2), transparent);
+  color: #fff;
+  overflow: hidden;
+}
+
+.auth-panel-brand .muted,
+.auth-panel-brand .metric-label {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.auth-panel-brand .metric-card {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: none;
+  color: #fff;
+}
+
+.auth-panel-form {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(245, 249, 248, 0.94));
+}
+
+.brand-mark,
+.btn-primary {
+  background: linear-gradient(135deg, var(--signal), #e25513);
+}
+
+.eyebrow,
+.brand span,
+.text-link,
+.page-summary-label {
+  color: var(--signal);
+}
+
+.auth-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  padding: 4px;
+  border-radius: 12px;
+  background: #edf2f1;
+  border: 1px solid rgba(18, 20, 22, 0.08);
+}
+
+.auth-tabs .tab-btn {
+  padding: 12px 10px;
+  border: 0;
+  border-radius: 9px;
+}
+
+.auth-tabs .tab-btn.active {
+  color: var(--ink);
+  background: #fff;
+  box-shadow: 0 8px 18px rgba(32, 38, 44, 0.08);
+}
+
+.auth-divider {
+  position: relative;
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.auth-divider::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: rgba(18, 20, 22, 0.12);
+}
+
+.auth-divider span {
+  position: relative;
+  padding: 0 10px;
+  background: rgba(255, 255, 255, 0.96);
+}
+
+.demo-access-btn {
+  color: var(--graphite);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(237, 245, 244, 0.95));
+  border: 1px solid rgba(18, 20, 22, 0.12);
+}
+
+.btn:disabled {
+  opacity: 0.62;
+  cursor: wait;
+  transform: none;
+}
+
+.page-shell {
+  background:
+    linear-gradient(90deg, rgba(18, 20, 22, 0.04) 1px, transparent 1px),
+    linear-gradient(rgba(18, 20, 22, 0.035) 1px, transparent 1px);
+  background-size: 36px 36px;
+}
+
+.sidebar {
+  background: rgba(255, 255, 255, 0.82);
+  border-right: 1px solid rgba(18, 20, 22, 0.1);
+}
+
+.nav-link {
+  border-radius: 10px;
+}
+
+.nav-link.active {
+  color: var(--ink);
+  background: #fff;
+  box-shadow: inset 3px 0 0 var(--signal), 0 10px 24px rgba(32, 38, 44, 0.07);
+}
+
+.dashboard-spotlight-card,
+.metric-card,
+.panel,
+.page-summary-card,
+.workspace-card,
+.activity-item,
+.summary-item,
+.citation-item,
+.quiz-item {
+  animation: riseIn 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.dashboard-spotlight-card:hover,
+.metric-card:hover,
+.panel:hover,
+.page-summary-card:hover,
+.workspace-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(18, 20, 22, 0.16);
+  box-shadow: 0 22px 54px rgba(32, 38, 44, 0.12);
+}
+
+.spotlight-main {
+  background: linear-gradient(135deg, rgba(18, 20, 22, 0.96), rgba(31, 45, 54, 0.92));
+  color: #fff;
+}
+
+.spotlight-main .muted,
+.spotlight-main .eyebrow {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.spotlight-pill {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+.metric-icon.orange,
+.upload-icon {
+  background: rgba(255, 122, 26, 0.12);
+  color: var(--signal);
+}
+
+.metric-icon.purple {
+  background: rgba(113, 97, 239, 0.12);
+  color: var(--violet);
+}
+
+.sparkline,
+.recent-icon,
+.queue-badge,
+.map-core,
+.spotlight-node.node-core {
+  background: linear-gradient(135deg, var(--mint), #0b776c);
+}
+
+.knowledge-map {
+  background:
+    linear-gradient(90deg, rgba(18, 20, 22, 0.04) 1px, transparent 1px),
+    linear-gradient(rgba(18, 20, 22, 0.04) 1px, transparent 1px),
+    #f8fbfa;
+  background-size: 28px 28px;
+}
+
+.chart-bar {
+  background: linear-gradient(180deg, var(--blue), var(--mint));
+}
+
+.progress-fill {
+  background: linear-gradient(90deg, var(--signal), var(--gold));
+}
+
+@keyframes riseIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 760px) {
+  .auth-tabs {
+    grid-template-columns: 1fr;
+  }
+
+  .auth-panel,
+  .panel,
+  .metric-card,
+  .workspace-card,
+  .status-card,
+  .dashboard-spotlight-card,
+  .page-summary-card {
+    border-radius: 12px;
+  }
+}
